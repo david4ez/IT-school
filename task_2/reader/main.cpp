@@ -16,14 +16,7 @@ int main() {
         mapped_region region(shm_obj, read_only);
 
         char *mem = static_cast<char*>(region.get_address());
-        for (size_t i = 0; i < region.get_size(); i++) {
-            if (*mem != '\0') {
-                cout << *mem;
-                *mem++;
-            }
-            else
-                break;
-        }
+        cout << mem;
     }
     catch (interprocess_exception &ex) {
         cout << ex.what() << endl;
