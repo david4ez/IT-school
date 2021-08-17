@@ -16,7 +16,7 @@ int main() {
     for (size_t i = 0; i != msg.length(); i++)
         message[i] = msg[i];
 
-    cout << message << endl;
+    message[msg.length()] = '\0';
 
     shared_memory_object shm_obj(create_only,
                                  "shared_memory",
