@@ -1,11 +1,8 @@
 #include <iostream>
-#include <cstring>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
 using namespace boost::interprocess;
-
-using namespace std;
 
 int main() {
     try {
@@ -16,14 +13,14 @@ int main() {
         mapped_region region(shm_obj, read_only);
 
         char *mem = static_cast<char*>(region.get_address());
-        cout << mem;
+        std::cout << mem << std::endl;
     }
     catch (interprocess_exception &ex) {
-        cout << ex.what() << endl;
+        std::cout << ex.what() << std::endl;
         return 1;
     }
 
-    cout << endl << "Success!" << endl;
+    std::cout << "Success!" << std::endl;
 
     return 0;
 }
