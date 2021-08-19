@@ -2,12 +2,8 @@
 
 Fingerprint::Fingerprint(const char* name)
 	: m_fileName(name) {
-    try {
-        if (BIO_new_file(m_fileName, "rb") == NULL)
-            throw std::runtime_error("Unable to open the certificate");
-    }
-    catch (const std::runtime_error& e) {
-        std::cout << e.what();
+    if (BIO_new_file(m_fileName, "rb") == NULL) {
+        std::cout << "Unable to open the certificate";
 
         exit(0);
     }
