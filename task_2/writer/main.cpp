@@ -1,22 +1,12 @@
 #include <iostream>
-#include <cstring>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
 using namespace boost::interprocess;
 
-using namespace std;
-
 int main() {
-    string msg;
-    char message[80];
-
-    getline(cin, msg);
-
-    for (size_t i = 0; i != msg.length(); i++)
-        message[i] = msg[i];
-
-    message[msg.length()] = '\0';
+    std::string message;
+    getline(std::cin, message);
 
     shared_memory_object shm_obj(create_only,
                                  "shared_memory",
@@ -25,11 +15,11 @@ int main() {
 
     mapped_region region(shm_obj, read_write);
 
-    memcpy(region.get_address(), message, strlen(message));
+    memcpy(region.get_address(), message.c_str(), message.length());
 
     while (true) {
-        string stop;
-        cin >> stop;
+        std::string stop;
+        std::cin >> stop;
 
         if (stop == "stop")
             break;
@@ -37,7 +27,7 @@ int main() {
 
     shared_memory_object::remove("shared_memory");
 
-    cout << "Success!" << endl;
+    std::cout << "Success!" << std::endl;
 
     return 0;
 }
